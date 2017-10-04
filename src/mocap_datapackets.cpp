@@ -25,9 +25,13 @@ const geometry_msgs::PoseStamped RigidBody::get_ros_pose()
   ros_pose.pose.position.y = -pose.position.z;
   ros_pose.pose.position.z = pose.position.y;
 
-  ros_pose.pose.orientation.x = pose.orientation.x;
-  ros_pose.pose.orientation.y = -pose.orientation.z;
-  ros_pose.pose.orientation.z = pose.orientation.y;
+  // this transformation gives the orientation in a coordinate system where
+  //   x is forward
+  //   y is left
+  //   z is up
+  ros_pose.pose.orientation.x = -pose.orientation.x;
+  ros_pose.pose.orientation.y = pose.orientation.z;
+  ros_pose.pose.orientation.z = -pose.orientation.y;
   ros_pose.pose.orientation.w = pose.orientation.w;
 
   return ros_pose;
